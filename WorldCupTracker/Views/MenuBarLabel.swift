@@ -6,7 +6,6 @@ struct MenuBarLabel: View {
 
     var body: some View {
         HStack(spacing: 4) {
-            Image(systemName: "soccerball")
             Text(labelText)
                 .lineLimit(1)
         }
@@ -22,20 +21,22 @@ struct MenuBarLabel: View {
 
 private extension Match {
     var menuBarText: String {
+        let h = homeFlagEmoji
+        let a = awayFlagEmoji
         switch status {
         case .live:
             let display = elapsedDisplay ?? ""
-            return "\(homeShortName) \(homeScore)–\(awayScore) \(awayShortName) \(display)"
+            return "\(h) \(homeScore)–\(awayScore) \(a) \(display)"
         case .upcoming:
             let dateStr = Self.menuBarFormatter.string(from: kickoff)
-            return "\(homeShortName) vs \(awayShortName) · \(dateStr)"
+            return "\(h) vs \(a) · \(dateStr)"
         case .finished:
             let label = finishedLabel ?? "FT"
-            return "\(homeShortName) \(homeScore)–\(awayScore) \(awayShortName) \(label)"
+            return "\(h) \(homeScore)–\(awayScore) \(a) \(label)"
         case .postponed:
-            return "\(homeShortName) vs \(awayShortName) PST"
+            return "\(h) vs \(a) PST"
         case .cancelled:
-            return "\(homeShortName) vs \(awayShortName)"
+            return "\(h) vs \(a)"
         }
     }
 

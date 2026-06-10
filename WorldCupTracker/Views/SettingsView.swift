@@ -28,7 +28,7 @@ struct SettingsView: View {
 
     private var apiKeyForm: some View {
         VStack(spacing: 14) {
-            Text("Enter your API-Football key to get started.")
+            Text("Enter your BSD API key to get started.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -60,10 +60,10 @@ struct SettingsView: View {
             Divider()
 
             VStack(spacing: 6) {
-                Text("Get a free key at **api-football.com**")
+                Text("Get a free key at **sports.bzzoiro.com**")
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                Text("Free tier: 100 calls/day. The app polls every 2 min during a live match and every 30 min otherwise to stay within this limit.")
+                Text("No rate limits. The app polls every 30 s during live matches and every 3 min otherwise.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -82,7 +82,7 @@ struct SettingsView: View {
                 .foregroundStyle(.green)
             Text("API Key Saved")
                 .font(.headline)
-            Text("Connected to API-Football. Live scores update every 2 minutes.")
+            Text("Connected to BSD Sports API. Live scores update every 30 seconds.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
