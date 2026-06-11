@@ -5,6 +5,7 @@ struct SettingsView: View {
     #if os(macOS)
     @Environment(AppUpdater.self) private var updater
     #endif
+    @Environment(\.dismiss) private var dismiss
 
     @State private var apiKey = ""
     @State private var isWorking = false
@@ -34,6 +35,17 @@ struct SettingsView: View {
             #endif
         }
         .padding(24)
+        .overlay(alignment: .topTrailing) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title3)
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+            .padding(8)
+        }
     }
 
     // MARK: - API key form
