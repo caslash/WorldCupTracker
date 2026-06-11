@@ -65,14 +65,14 @@ struct Match: Decodable, Identifiable {
 
     var homeDisplayName: String { homeTeam }
     var awayDisplayName: String { awayTeam }
-    var homeShortName: String { abbreviate(homeTeam) }
-    var awayShortName: String { abbreviate(awayTeam) }
+    var homeShortName: String { Self.shortName(for: homeTeam) }
+    var awayShortName: String { Self.shortName(for: awayTeam) }
     // Flag emoji, falling back to abbreviation for placeholders like "1F" or "3C/3D/3G"
     var homeFlagEmoji: String { Self.flagEmoji(for: homeTeam) ?? homeShortName }
     var awayFlagEmoji: String { Self.flagEmoji(for: awayTeam) ?? awayShortName }
 
     // "Mexico" → "MEX", "South Africa" → "SA", "United States" → "US"
-    private func abbreviate(_ name: String) -> String {
+    static func shortName(for name: String) -> String {
         let words = name.split(separator: " ")
         if words.count == 1 { return String(name.prefix(3)).uppercased() }
         return words.prefix(4).map { String($0.prefix(1)) }.joined().uppercased()
@@ -133,6 +133,8 @@ struct Match: Decodable, Identifiable {
         "Chinese Taipei":           "🇹🇼",
         "IR Iran":                  "🇮🇷",
         "UAE":                      "🇦🇪",
+        "Cape Verde":               "🇨🇻",
+        "Cabo Verde":               "🇨🇻",
     ]
 
     // MARK: - Scores

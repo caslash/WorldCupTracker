@@ -1,8 +1,15 @@
 import SwiftUI
 
+private enum MainTab: String, CaseIterable, Identifiable {
+    case matches = "Matches"
+    case standings = "Standings"
+    var id: Self { self }
+}
+
 struct ContentView: View {
     @Environment(MatchTracker.self) private var tracker
     @State private var showSettings = false
+    @State private var selectedTab: MainTab = .matches
 
     var body: some View {
         Group {
@@ -10,7 +17,7 @@ struct ContentView: View {
                 SettingsView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                matchList
+                mainContent
             }
         }
         .onAppear { tracker.start() }
@@ -19,32 +26,27 @@ struct ContentView: View {
         #endif
     }
 
-    // MARK: - Match list
+    // MARK: - Main content
 
-    private var matchList: some View {
+    private var mainContent: some View {
         NavigationStack {
-            List {
-                if !tracker.liveMatches.isEmpty {
-                    Section("Live") {
-                        ForEach(tracker.liveMatches) { MatchRow(match: $0) }
+            VStack(spacing: 0) {
+                Picker("View", selection: $selectedTab) {
+                    ForEach(MainTab.allCases) { tab in
+                        Text(tab.rawValue).tag(tab)
                     }
                 }
-                if !tracker.upcomingMatches.isEmpty {
-                    Section("Upcoming") {
-                        ForEach(tracker.upcomingMatches) { MatchRow(match: $0) }
-                    }
-                }
-                if !tracker.finishedMatches.isEmpty {
-                    Section("Finished") {
-                        ForEach(tracker.finishedMatches) { MatchRow(match: $0) }
-                    }
-                }
-                if case .error(let msg) = tracker.loadState {
-                    Section {
-                        Label(msg, systemImage: "exclamationmark.triangle")
-                            .foregroundStyle(.red)
-                            .font(.caption)
-                    }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .padding(.horizontal)
+                .padding(.top, 8)
+                .padding(.bottom, 4)
+
+                switch selectedTab {
+                case .matches:
+                    matchListBody
+                case .standings:
+                    GroupTablesView()
                 }
             }
             .navigationTitle("2026 FIFA World Cup")
@@ -80,6 +82,35 @@ struct ContentView: View {
                 .frame(width: 340)
                 .padding()
                 #endif
+        }
+    }
+
+    // MARK: - Match list
+
+    private var matchListBody: some View {
+        List {
+            if !tracker.liveMatches.isEmpty {
+                Section("Live") {
+                    ForEach(tracker.liveMatches) { MatchRow(match: $0) }
+                }
+            }
+            if !tracker.upcomingMatches.isEmpty {
+                Section("Upcoming") {
+                    ForEach(tracker.upcomingMatches) { MatchRow(match: $0) }
+                }
+            }
+            if !tracker.finishedMatches.isEmpty {
+                Section("Finished") {
+                    ForEach(tracker.finishedMatches) { MatchRow(match: $0) }
+                }
+            }
+            if case .error(let msg) = tracker.loadState {
+                Section {
+                    Label(msg, systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(.red)
+                        .font(.caption)
+                }
+            }
         }
     }
 }
