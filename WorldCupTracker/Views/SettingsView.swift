@@ -2,6 +2,9 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(MatchTracker.self) private var tracker
+    #if os(macOS)
+    @Environment(AppUpdater.self) private var updater
+    #endif
 
     @State private var apiKey = ""
     @State private var isWorking = false
@@ -20,6 +23,15 @@ struct SettingsView: View {
             } else {
                 apiKeyForm
             }
+
+            #if os(macOS)
+            Divider()
+
+            Button("Check for Updates…") {
+                updater.checkForUpdates()
+            }
+            .disabled(!updater.canCheckForUpdates)
+            #endif
         }
         .padding(24)
     }

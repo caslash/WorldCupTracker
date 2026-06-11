@@ -33,12 +33,16 @@ struct WorldCupTrackerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     #endif
     @State private var tracker = MatchTracker()
+    #if os(macOS)
+    @State private var updater = AppUpdater()
+    #endif
 
     var body: some Scene {
         WindowGroup(id: "main") {
             ContentView()
                 .environment(tracker)
                 #if os(macOS)
+                .environment(updater)
                 .onAppear {
                     NSApp.setActivationPolicy(.regular)
                 }
@@ -49,6 +53,7 @@ struct WorldCupTrackerApp: App {
         MenuBarExtra {
             MenuBarPanelView()
                 .environment(tracker)
+                .environment(updater)
         } label: {
             MenuBarLabel(tracker: tracker)
         }

@@ -96,7 +96,8 @@ struct Match: Decodable, Identifiable {
     private static let localeNameToCode: [String: String] = {
         let locale = Locale(identifier: "en_US")
         var map: [String: String] = [:]
-        for code in Locale.isoRegionCodes {
+        for region in Locale.Region.isoRegions {
+            let code = region.identifier
             if let name = locale.localizedString(forRegionCode: code) {
                 map[name.lowercased()] = code
             }
