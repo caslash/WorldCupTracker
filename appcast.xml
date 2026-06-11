@@ -3,15 +3,12 @@
     <channel>
         <title>WorldCupTracker</title>
         <item>
-            <title>1.0</title>
-            <pubDate>Wed, 10 Jun 2026 21:43:47 -0400</pubDate>
+            <title>1.1</title>
+            <pubDate>Wed, 10 Jun 2026 23:14:43 -0400</pubDate>
             <sparkle:version>1</sparkle:version>
-            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>26.5.1</sparkle:minimumSystemVersion>
-            <enclosure
-                url="https://raw.githubusercontent.com/caslash/WorldCupTracker/main/WorldCupTracker.zip"
-                length="3464643" type="application/octet-stream"
-                sparkle:edSignature="Dyu0EfCJOIn79uQRoFh5mGKbv7KVoXY9g5KtXLa3w8xqygvqRcRJ9+xcFJVwTmPn6ewNKz/s6cWe8k/afYwtDQ==" />
+            <enclosure url="https://github.com/caslash/WorldCupTracker/releases/download/v1.1/WorldCupTracker.zip" length="3522199" type="application/octet-stream" sparkle:edSignature="Oxqa2fYwByJZBoyLC3wMdqiIkYNgFYS7JM5q5Rs4HPJtKKC6SM2z46zFlPzWDaN3CA8gjLUE2lHJ+3jO3GIhAw=="/>
         </item>
     </channel>
 </rss>
