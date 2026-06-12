@@ -6,7 +6,7 @@ final class MatchTracker {
     var matches: [Match] = []
     var loadState: LoadState = .idle
     var lastUpdated: Date?
-    var isAuthenticated: Bool = ApiKeyStore.load() != nil
+    var isAuthenticated: Bool = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" && ApiKeyStore.load() != nil
     var apiKeyError: String?
 
     // Cached World Cup season ID — persists across launches via UserDefaults

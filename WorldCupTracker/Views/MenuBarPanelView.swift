@@ -198,3 +198,8 @@ private struct FeaturedMatchCard: View {
     }
 }
 #endif
+
+#Preview {
+    MenuBarPanelView()
+        .environment(MatchTracker())
+}

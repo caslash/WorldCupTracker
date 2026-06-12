@@ -47,3 +47,7 @@ private extension Match {
     }()
 }
 #endif
+
+#Preview {
+    MenuBarLabel(tracker: MatchTracker())
+}
